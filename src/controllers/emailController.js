@@ -8,12 +8,12 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export const sendEmailsToCustomers = async (req, res) => {
   const firestore = admin.firestore();
   const today = new Date();
-  const past7Days = new Date(today.setDate(today.getDate() - 7));
+  const pastDays = new Date(today.setDate(today.getDate() - 10));
 
   try {
     const customersRef = firestore.collection("customers");
     const snapshot = await customersRef
-      .where("latestVisitDate", ">=", past7Days)
+      // .where("latestVisitDate", "<=", pastDays)
       .get();
 
     if (snapshot.empty) {
@@ -25,6 +25,7 @@ export const sendEmailsToCustomers = async (req, res) => {
 
     snapshot.forEach((doc) => {
       const customer = doc.data();
+      console.log("Sending email to:", customer);
       const msg = {
         to: customer.email, // Recipient email address
         from: process.env.EMAIL_USER, // Your verified sender email address

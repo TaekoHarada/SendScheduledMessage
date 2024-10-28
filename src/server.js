@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
 import emailRouter from "./routes/emailRoutes.js"; // Import your email router
+import customerRoutes from "./routes/customerRoutes.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -19,7 +20,10 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Apply CORS options
 app.use(express.json());
 app.use("/api/auth", authRouter);
-app.use("/api", emailRouter); // Use your email router
+app.use("/api/customers", customerRoutes);
+// app.use("/api/mail-templates", mailRoutes);
+
+app.use("/api/email", emailRouter); // Use your email router
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
