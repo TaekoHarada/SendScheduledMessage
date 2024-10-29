@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
-import emailRouter from "./routes/emailRoutes.js"; // Import your email router
+import emailRoutes from "./routes/emailRoutes.js"; // Import your email router
 import customerRoutes from "./routes/customerRoutes.js";
 import dotenv from "dotenv";
 
@@ -23,7 +23,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/customers", customerRoutes);
 // app.use("/api/mail-templates", mailRoutes);
 
-app.use("/api/email", emailRouter); // Use your email router
+app.use("/api/emails", emailRoutes); // Use your email router
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
